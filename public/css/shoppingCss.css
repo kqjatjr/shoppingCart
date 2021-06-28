@@ -1,0 +1,22 @@
+.bodystyle {
+  background-color: #cccecf;
+  display: flex;
+  justify-content: center;
+
+  margin: 20px;
+}
+.startcontainer {
+  display: flex;
+  width: 600px;
+  height: 150px;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+.startcontainer .titlestyle {
+  margin-top: 15px;
+  font-size: 48px;
+  border-bottom: 1px;
+}
