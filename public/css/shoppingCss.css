@@ -26,7 +26,33 @@ body {
 }
 
 .container .container_inputbox .inputbox_inputitem {
-  margin-left: 10px;
   border: none;
-  border-bottom: 1px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-right: 5px;
+}
+.container .container_select {
+  margin-top: 15px;
+}
+.renderContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 20px auto 0 auto;
+  background-color: white;
+  align-items: center;
+  width: 1000px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+.container_addButton {
+  border-radius: 2px;
+  border: none;
+  margin-left: 5px;
+  background-color: #70c8ff;
+}
+.container_addButton:hover {
+  background-color: yellow;
+}
+.container_addButton:active {
+  background-color: red;
 }
