@@ -29,25 +29,41 @@
           <option value="priority">우선순위</option>
         </select>
       </div>
+      <div class="renderContainer">
+        <label class="renderlabel">이름 </label
+        ><label class="renderlabel">수량</label
+        ><label class="renderlabel">가격</label
+        ><label class="renderlabel">우선순위</label>
+      </div>
+      <div class="renderInput"></div>
     </div>
-    <div class="renderContainer">
-      <ul class="shopping-list"></ul>
-    </div>
+
     <script type="text/javascript">
       class Shopping {
         constructor(id) {
           this.shopping = [];
-          this.$shoppinglist = document.querySelector(id);
+          this.$shoppingList = document.querySelector(id);
           this.initializeEvents();
         }
 
         initializeEvents() {
-          const $add = this.$shoppinglist.querySelector(".container_addButton");
+          const $add = this.$shoppingList.querySelector(".container_addButton");
           $add.addEventListener("click", this.handleClickAdd);
         }
+
         handleClickAdd = () => {
-          const $input_name = this.$shoppinglist.querySelector("#name_id");
-          console.log($input_name);
+          const $inputName = this.$shoppingList.querySelector("#nameId");
+          const $inputQuantity =
+            this.$shoppingList.querySelector("#quantityId");
+          const $inputPrice = this.$shoppingList.querySelector("#priceId");
+          const $inputPriority =
+            this.$shoppingList.querySelector("#priorityId");
+          const $list = this.$shoppingList.querySelector(".renderInput");
+          $list.innerHTML = `<label class="renderlabel">${$inputName.value}</label><label class="renderlabel">${$inputQuantity.value}</label><label class="renderlabel">${$inputPrice.value}</label><label class="renderlabel">${$inputPriority.value}</label>`;
+          $inputName.value = "";
+          $inputQuantity.value = "";
+          $inputPrice.value = "";
+          $inputPriority.value = "";
         };
       }
       const shopping = new Shopping("#container");

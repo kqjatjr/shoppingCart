@@ -35,16 +35,15 @@ body {
 }
 .renderContainer {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   margin: 20px auto 0 auto;
-  background-color: white;
   align-items: center;
-  width: 1000px;
+  width: 900px;
+  background-color: bisque;
   border-radius: 10px;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
-.container_addButton {
+.container .container_addButton {
   border-radius: 2px;
   border: none;
   margin-left: 5px;
@@ -55,4 +54,16 @@ body {
 }
 .container_addButton:active {
   background-color: red;
+}
+.shopping-list {
+  background-color: bisque;
+}
+.renderInput {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px auto 0 auto;
+  align-items: center;
+  width: 900px;
+  background-color: bisque;
+  border-radius: 10px;
 }
