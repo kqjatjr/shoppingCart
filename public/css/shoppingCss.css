@@ -1,22 +1,32 @@
-.bodystyle {
+body {
   background-color: #cccecf;
-  display: flex;
-  justify-content: center;
-
-  margin: 20px;
 }
-.startcontainer {
+.container {
   display: flex;
-  width: 600px;
-  height: 150px;
+  flex-direction: column;
   justify-content: center;
-  background-color: rgb(255, 255, 255);
-  border: none;
+  align-items: center;
+  width: 1000px;
+  box-sizing: border-box;
+  margin: 20px auto 0 auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
 }
-.startcontainer .titlestyle {
+.container .title {
+  display: block;
   margin-top: 15px;
   font-size: 48px;
+}
+.container .container_inputbox {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2px;
+}
+
+.container .container_inputbox .inputbox_inputitem {
+  margin-left: 10px;
+  border: none;
   border-bottom: 1px;
 }
