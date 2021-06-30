@@ -14,7 +14,7 @@
         <label for="nameId">이름 </label
         ><input type="text" id="nameId" class="inputbox_inputitem" />
         <label for="quantityId">수량 </label
-        ><input type="text" id="quantityId" class="inputbox_inputitem" />
+        ><input type="number" id="quantityId" class="inputbox_inputitem" />
         <label for="priceId">가격 </label
         ><input type="number" id="priceId" class="inputbox_inputitem" />
         <label for="priorityId">우선순위 </label>
@@ -22,7 +22,8 @@
         <button class="container_addButton">add</button>
       </div>
       <div class="container_select">
-        <select>
+        <select id="sortSelect">
+          <option value="" selected disabled>정렬순서</option>
           <option value="name">이름</option>
           <option value="quantity">수량</option>
           <option value="price">가격</option>
@@ -30,18 +31,28 @@
         </select>
       </div>
       <div class="renderContainer">
-        <label class="renderlabel">이름 </label
-        ><label class="renderlabel">수량</label
-        ><label class="renderlabel">가격</label
-        ><label class="renderlabel">우선순위</label>
+        <table class="renderHead">
+          <thead>
+            <tr>
+              <th>이름</th>
+              <th>수량</th>
+              <th>가격</th>
+              <th>우선순위</th>
+              <th>삭제</th>
+            </tr>
+          </thead>
+          <tbody class="renderInput"></tbody>
+        </table>
+        <div>
+          <label>계: </label><label class="sumPrice"></label><label>원</label>
+        </div>
       </div>
-      <div class="renderInput"></div>
     </div>
-
     <script type="text/javascript">
       class Shopping {
         constructor(id) {
           this.shopping = [];
+          this.prices = "0";
           this.$shoppingList = document.querySelector(id);
           this.initializeEvents();
         }
@@ -49,6 +60,16 @@
         initializeEvents() {
           const $add = this.$shoppingList.querySelector(".container_addButton");
           $add.addEventListener("click", this.handleClickAdd);
+          const $delete = this.$shoppingList.querySelector(".renderInput");
+          $delete.addEventListener("click", this.handleClickDelete);
+          const $select = this.$shoppingList.querySelector("#sortSelect");
+          $select.addEventListener("change", this.changeSelect);
+        }
+
+        setShopping(shopping) {
+          this.shopping = shopping;
+          this.changeSelect();
+          this.renderList();
         }
 
         handleClickAdd = () => {
@@ -58,12 +79,64 @@
           const $inputPrice = this.$shoppingList.querySelector("#priceId");
           const $inputPriority =
             this.$shoppingList.querySelector("#priorityId");
-          const $list = this.$shoppingList.querySelector(".renderInput");
-          $list.innerHTML = `<label class="renderlabel">${$inputName.value}</label><label class="renderlabel">${$inputQuantity.value}</label><label class="renderlabel">${$inputPrice.value}</label><label class="renderlabel">${$inputPriority.value}</label>`;
+          if (
+            $inputName.value.length === 0 ||
+            $inputPrice.value.length === 0 ||
+            $inputQuantity.value.length === 0
+          ) {
+            return;
+          }
+          this.priceSum(
+            parseInt(this.prices, 10) + parseInt($inputPrice.value, 10),
+          );
+          this.setShopping([
+            ...this.shopping,
+            {
+              id: Date.now(),
+              name: $inputName.value,
+              quantity: $inputQuantity.value,
+              price: $inputPrice.value,
+              priority: $inputPriority.value,
+            },
+          ]);
           $inputName.value = "";
-          $inputQuantity.value = "";
           $inputPrice.value = "";
           $inputPriority.value = "";
+          $inputQuantity.value = "";
+        };
+
+        handleClickDelete = (event) => {
+          const { target } = event;
+          if (!target.classList.contains("deleteBtn")) {
+            return;
+          }
+          this.setShopping(
+            this.shopping.filter(
+              (shopping) => shopping.id !== parseInt(target.dataset.id, 10),
+            ),
+          );
+        };
+
+        renderList() {
+          const $list = this.$shoppingList.querySelector(".renderInput");
+          $list.innerHTML = this.shopping
+            .map(
+              (shopping) =>
+                `<tr><td>${shopping.name}</td><td>${shopping.quantity}</td><td>${shopping.price}</td><td>${shopping.priority}</td><td><button class='deleteBtn' data-id='${shopping.id}'>b</button></td></tr>`,
+            )
+            .join("");
+        }
+
+        priceSum(price) {
+          const $pricesSum = document.querySelector(".sumPrice");
+          this.prices = price;
+          $pricesSum.innerHTML = this.prices;
+        }
+        changeSelect = (event) => {
+          const $selectChange = document.querySelector("#sortSelect");
+          const $selectValue =
+            $selectChange.options[$selectChange.selectedIndex].value;
+          console.log($selectValue);
         };
       }
       const shopping = new Shopping("#container");
