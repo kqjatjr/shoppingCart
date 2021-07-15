@@ -44,7 +44,7 @@
           <tbody class="renderInput"></tbody>
         </table>
         <div>
-          <label>계: </label><label class="sumPrice"></label><label>원</label>
+          <label>계: </label><label class="sumPrice">0</label><label>원</label>
         </div>
       </div>
     </div>
@@ -89,6 +89,7 @@
           this.priceSum(
             parseInt(this.prices, 10) + parseInt($inputPrice.value, 10),
           );
+
           this.setShopping([
             ...this.shopping,
             {
@@ -107,15 +108,26 @@
 
         handleClickDelete = (event) => {
           const { target } = event;
+          const targetId = target.getAttribute("data-id");
           if (!target.classList.contains("deleteBtn")) {
             return;
           }
+          this.priceSubmit(targetId);
           this.setShopping(
             this.shopping.filter(
               (shopping) => shopping.id !== parseInt(target.dataset.id, 10),
             ),
           );
         };
+
+        priceSubmit(targetId) {
+          const $pricesSum = document.querySelector(".sumPrice");
+          const submitPrice = this.shopping.find(
+            (shopping) => shopping.id === parseInt(targetId),
+          );
+          this.prices -= submitPrice.price;
+          $pricesSum.innerHTML = this.prices;
+        }
 
         renderList() {
           const $list = this.$shoppingList.querySelector(".renderInput");
@@ -132,11 +144,40 @@
           this.prices = price;
           $pricesSum.innerHTML = this.prices;
         }
+
         changeSelect = (event) => {
           const $selectChange = document.querySelector("#sortSelect");
           const $selectValue =
             $selectChange.options[$selectChange.selectedIndex].value;
-          console.log($selectValue);
+          if ($selectValue === "name") {
+            this.shopping.sort(function (a, b) {
+              return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+            });
+          }
+          if ($selectValue === "quantity") {
+            this.shopping.sort(function (a, b) {
+              return a.quantity - b.quantity;
+            });
+          }
+          if ($selectValue === "price") {
+            this.shopping.sort(function (a, b) {
+              return a.price - b.price;
+            });
+          }
+          if ($selectValue === "priority") {
+            this.shopping.sort(function (a, b) {
+              console.log(a);
+              console.log(b);
+              if (a === "") {
+                return 1;
+              }
+              if (b === "") {
+                return -1;
+              }
+              return a.priority - b.priority;
+            });
+          }
+          this.renderList();
         };
       }
       const shopping = new Shopping("#container");
