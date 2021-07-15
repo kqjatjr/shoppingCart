@@ -6,7 +6,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 1000px;
+  width: 1200px;
   box-sizing: border-box;
   margin: 20px auto 0 auto;
   padding: 20px;
@@ -34,17 +34,12 @@ body {
   margin-top: 15px;
 }
 .renderContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 20px auto 0 auto;
-  background-color: white;
-  align-items: center;
   width: 1000px;
+  background-color: bisque;
   border-radius: 10px;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
-.container_addButton {
+.container .container_addButton {
   border-radius: 2px;
   border: none;
   margin-left: 5px;
@@ -55,4 +50,33 @@ body {
 }
 .container_addButton:active {
   background-color: red;
+}
+.shopping-list {
+  background-color: bisque;
+}
+.renderHead {
+  width: 1000px;
+  background-color: bisque;
+  border-radius: 10px;
+}
+.renderInput {
+  width: 1000px;
+  background-color: bisque;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.deleteBtn {
+  background-color: aqua;
+  border: none;
+  border-radius: 5px;
+}
+.deleteBtn:active {
+  background-color: rebeccapurple;
+  border: none;
+  border-radius: 5px;
+}
+
+.sumPrice {
+  text-align: right;
 }
